@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Computo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="main">
+        <div id="container">
+            <form id="miFormulario" action="/create" method="post">
+                <div id="matricula">
+                  <h1>Matricula</h1>
+                  <input required name="matricula" id="input" type="text" placeholder="Ingresa tu matricula">
+                </div>
+              
+                <div id="genre">
+                  <div>
+                    <h2>Sexo</h2>
+                  </div>
+                  <div id="opc">
+                    <input class="radio" name="genre" type="radio" value="Hombre">Masculino
+                    <input class="radio" name="genre" type="radio" value="Mujer">Femenino
+                  </div>
+                </div>
+              
+                <div id="buton">
+                  <button type="submit">Guardar</button>
+                </div>
+              </form>
+              <div id="mensaje"></div>
+              <div id="buton">         
+        </div>
+    </div>
+    <script>
+        const matricula = document.getElementById("input")
+    </script>
+</body>
+</html>
