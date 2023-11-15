@@ -9,7 +9,7 @@
 <body>
     <div id="main">
         <div id="container">
-            <form id="miFormulario" action="/create" method="post">
+            <form id="miFormulario" action="/create" method="post" onsubmit="return validarFormulario()">
                 <div id="matricula">
                   <h1>Matricula</h1>
                   <input required name="matricula" id="input" type="text" placeholder="Ingresa tu matricula">
@@ -30,11 +30,43 @@
                 </div>
               </form>
               <div id="mensaje"></div>
-              <div id="buton">         
+              <div id="buton">     
+                <div id="error"></div>    
+              </div>
         </div>
     </div>
     <script>
-        const matricula = document.getElementById("input")
+      function validarFormulario() {
+        const matriculaValida = validarMatricula();
+        const genreSeleccionado = validarGenre();
+
+        return genreSeleccionado && matriculaValida;
+      }
+      function validarGenre() {
+        const radioMasculino = document.querySelector('input[name="genre"][value="Hombre"]');
+        const radioFemenino = document.querySelector('input[name="genre"][value="Mujer"]');
+
+        if (!radioMasculino.checked && !radioFemenino.checked) {
+          document.getElementById("error").innerText = "Selecciona tu género.";
+          return false;
+        }
+
+        return true;
+      }
+
+      function validarMatricula() {
+        const matriculaInput = document.getElementById("input");
+        const matricula = matriculaInput.value;
+        const regexMatricula = /^\d{6}$/;
+        console.log('ERROR');
+
+        if (!regexMatricula.test(matricula)) {
+          document.getElementById("error").innerText = "La matrícula debe ser solo los 6 numeros.";
+          return false;
+        }
+
+        return true;
+      }
     </script>
 </body>
 </html>

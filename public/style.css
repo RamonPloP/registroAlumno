@@ -12,9 +12,16 @@ body{
     justify-content: center;
 }
 
+#error{
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
 #container{
     width: 550px;
-    height: 250px;
+    height: 270px;
     background-color: #610070;
     border-radius: 50px;
     border: 6px solid yellow;
