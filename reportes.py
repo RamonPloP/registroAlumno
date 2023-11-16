@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 from pymongo import MongoClient
-from datetime import datetime, timedelta
 import pandas as pd
+import os
 
 class ReporteMensualApp:
     def __init__(self, master):
@@ -33,6 +33,8 @@ class ReporteMensualApp:
 
             query = {"_date": mes}
             data = list(collection.find(query))
+
+            print("Ruta actual: ",os.getcwd())
 
             print(f"Número total de documentos en la base de datos: {len(data)}")
 
