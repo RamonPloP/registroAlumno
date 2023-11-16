@@ -2,14 +2,12 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
     _matricula: String,
-    _genre: String,
     _date: String
 });
 
 class Alumno{
     constructor(matricula, genre, date){
         this._matricula = matricula;
-        this._genre = genre;
         this._date = date;
     }
 
@@ -19,14 +17,6 @@ class Alumno{
 
     set matricula(v){
         this._matricula = v;
-    }
-
-    get genre(){
-        return this._genre;
-    }
-
-    set genre(v){
-        this._genre = v;
     }
 
     get date(){

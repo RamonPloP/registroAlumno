@@ -4,69 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro Computo</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <div id="main">
-        <div id="container">
+      <div id="container">
             <form id="miFormulario" action="/create" method="post" onsubmit="return validarFormulario()">
-                <div id="matricula">
-                  <h1>Matricula</h1>
-                  <input required name="matricula" id="input" type="text" placeholder="Ingresa tu matricula">
-                </div>
-              
-                <div id="genre">
-                  <div>
-                    <h2>Sexo</h2>
-                  </div>
-                  <div id="opc">
-                    <input class="radio" name="genre" type="radio" value="Hombre">Masculino
-                    <input class="radio" name="genre" type="radio" value="Mujer">Femenino
-                  </div>
-                </div>
-              
-                <div id="buton">
-                  <button type="submit">Guardar</button>
-                </div>
-              </form>
-              <div id="mensaje"></div>
-              <div id="buton">     
-                <div id="error"></div>    
+              <div id="matricula">
+                <h1>Matricula</h1>
+                <input required name="matricula" id="input" type="text" placeholder="Ingresa tu matricula">
               </div>
+              <div id="buton">
+                <button type="submit">Guardar</button>
+              </div>
+            </form>    
+              <div id="error"></div>    
         </div>
     </div>
-    <script>
-      function validarFormulario() {
-        const matriculaValida = validarMatricula();
-        const genreSeleccionado = validarGenre();
-
-        return genreSeleccionado && matriculaValida;
-      }
-      function validarGenre() {
-        const radioMasculino = document.querySelector('input[name="genre"][value="Hombre"]');
-        const radioFemenino = document.querySelector('input[name="genre"][value="Mujer"]');
-
-        if (!radioMasculino.checked && !radioFemenino.checked) {
-          document.getElementById("error").innerText = "Selecciona tu género.";
-          return false;
-        }
-
-        return true;
-      }
-
-      function validarMatricula() {
-        const matriculaInput = document.getElementById("input");
-        const matricula = matriculaInput.value;
-        const regexMatricula = /^\d{6}$/;
-        console.log('ERROR');
-
-        if (!regexMatricula.test(matricula)) {
-          document.getElementById("error").innerText = "La matrícula debe ser solo los 6 numeros.";
-          return false;
-        }
-
-        return true;
-      }
-    </script>
+  <script src="./js/validate.js"></script>
 </body>
 </html>

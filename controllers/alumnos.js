@@ -1,15 +1,14 @@
 const Alumno = require('../models/alumno');
 
 async function create(req, res) {
-  const { matricula, genre } = req.body;
+  const { matricula } = req.body;
 
   const date = new Date();
   dateM = `${date.getMonth()}-${date.getFullYear()}`
 
   const alumno = new Alumno({
     matricula: matricula,
-    genre: genre,
-    date: dateM,
+    date: dateM
   });
 
   try {
