@@ -4,7 +4,8 @@ async function create(req, res) {
   const { matricula } = req.body;
 
   const date = new Date();
-  dateM = `${date.getMonth()}-${date.getFullYear()}`
+
+  dateM = `${date.getMonth()+1}-${date.getFullYear()}`
 
   const alumno = new Alumno({
     matricula: matricula,

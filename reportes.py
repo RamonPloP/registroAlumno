@@ -3,6 +3,10 @@ from tkinter import messagebox
 from pymongo import MongoClient
 import pandas as pd
 import os
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
 
 class ReporteMensualApp:
     def __init__(self, master):
@@ -31,6 +35,32 @@ class ReporteMensualApp:
 
     def generar_informe(self):
         mes = self.entry_mes.get()
+        def enviar_correo_adjunto(destinatario, asunto, cuerpo, archivo_adjunto, nombre):
+            # Configura el servidor SMTP (Gmail)
+            servidor_smtp = 'smtp.gmail.com'
+            puerto_smtp = 587
+            usuario = 'socialservicio15@gmail.com'
+            contrasena = 'rseizkhfibjjcuop'
+
+            # Configura el mensaje
+            mensaje = MIMEMultipart()
+            mensaje['From'] = usuario
+            mensaje['To'] = destinatario
+            mensaje['Subject'] = asunto
+            mensaje.attach(MIMEText(cuerpo, 'plain'))
+
+            # Adjunta el archivo al mensaje
+            with open(archivo_adjunto, 'rb') as archivo:
+                adjunto = MIMEApplication(archivo.read(), _subtype="xlsx")
+                adjunto.add_header('Content-Disposition', f'attachment; filename={nombre}')
+                mensaje.attach(adjunto)
+
+            # Conéctate al servidor SMTP y envía el correo
+            with smtplib.SMTP(servidor_smtp, puerto_smtp) as server:
+                server.starttls()
+                server.login(usuario, contrasena)
+                server.sendmail(usuario, destinatario, mensaje.as_string())
+                print('Archivo enviado exitosamente')
 
         if not mes:
             messagebox.showerror("Error", "Por favor, ingresa un mes válido.")
@@ -71,6 +101,15 @@ class ReporteMensualApp:
             df_combinado.to_excel(f'./informes/informe_mensual_{mes}.xlsx', index=False)
 
             messagebox.showinfo("Información", f"Informe generado correctamente para el mes {mes}.")
+
+            # Llama a la función para enviar el correo con el archivo adjunto
+            archivo_adjunto = f'./informes/informe_mensual_{mes}.xlsx'
+            nombre = f'Reporte_Mensual_{mes}.xlsx'
+            destinatario = 'a353256@uach.mx'
+            asunto = (f'Informe Mensual {mes}')
+            cuerpo = 'Informe mensual.'
+
+            enviar_correo_adjunto(destinatario, asunto, cuerpo, archivo_adjunto, nombre)
 
         except Exception as e:
             print(e)
