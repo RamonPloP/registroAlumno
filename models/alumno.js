@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
-    _matricula: String,
+    _matricula: Number,
     _date: String
 });
 

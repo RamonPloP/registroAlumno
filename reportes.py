@@ -19,6 +19,16 @@ class ReporteMensualApp:
         self.button_generar = tk.Button(master, text="Generar Informe", command=self.generar_informe)
         self.button_generar.pack()
 
+    def cargar_datos_adicionales(self, rutas_archivos):
+        # Cargar y combinar datos adicionales de cada parte
+        dfs = []
+        for ruta_archivo in rutas_archivos:
+            df = pd.read_excel(ruta_archivo)
+            dfs.append(df)
+
+        df_combinado = pd.concat(dfs, ignore_index=True)
+        return df_combinado
+
     def generar_informe(self):
         mes = self.entry_mes.get()
 
@@ -34,7 +44,7 @@ class ReporteMensualApp:
             query = {"_date": mes}
             data = list(collection.find(query))
 
-            print("Ruta actual: ",os.getcwd())
+            print("Ruta actual: ", os.getcwd())
 
             print(f"Número total de documentos en la base de datos: {len(data)}")
 
@@ -42,10 +52,23 @@ class ReporteMensualApp:
                 messagebox.showinfo("Información", "No hay datos disponibles en la base de datos.")
                 return
 
-            # Generación de reporte en Excel
             df = pd.DataFrame(data)
 
-            df.to_excel(f'./informes/informe_mensual_{mes}.xlsx', index=False)
+            rutas_archivos = ['./bibliotecas/ing.xlsx', './bibliotecas/conta.xlsx', './bibliotecas/fisica.xlsx', './bibliotecas/conta.xlsx']
+            # Cargar datos adicionales de cada parte
+            df_datos_adicionales = self.cargar_datos_adicionales(rutas_archivos)
+
+            print("Valores únicos en la columna de combinación en df:")
+            print(df['_matricula'].unique())
+
+            print("Valores únicos en la columna de combinación en df_datos_adicionales:")
+            print(df_datos_adicionales['_matricula'].unique())
+
+
+            # Enlazar datos de la base de datos con datos adicionales
+            df_combinado = pd.merge(df, df_datos_adicionales, on='_matricula', how='inner')
+
+            df_combinado.to_excel(f'./informes/informe_mensual_{mes}.xlsx', index=False)
 
             messagebox.showinfo("Información", f"Informe generado correctamente para el mes {mes}.")
 

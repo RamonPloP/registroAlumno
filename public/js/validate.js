@@ -7,10 +7,10 @@ function validarFormulario() {
   function validarMatricula() {
     const matriculaInput = document.getElementById("input");
     const matricula = matriculaInput.value;
-    const regexMatricula = /^\d{6}$/;
+    const regexMatricula = /^\d+$/;
 
     if (!regexMatricula.test(matricula)) {
-      document.getElementById("error").innerText = "La matrícula debe ser solo los 6 numeros.";
+      document.getElementById("error").innerText = "La matrícula debe ser solo los numeros.";
       return false;
     }
 
