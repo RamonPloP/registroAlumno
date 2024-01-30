@@ -105,7 +105,7 @@ class ReporteMensualApp:
             # Llama a la función para enviar el correo con el archivo adjunto
             archivo_adjunto = f'./informes/informe_mensual_{mes}.xlsx'
             nombre = f'Reporte_Mensual_{mes}.xlsx'
-            destinatario = 'rroque@uach.mx'
+            destinatario = 'a348411@uach.mx'
             asunto = (f'Informe Mensual {mes}')
             cuerpo = 'Informe mensual.'
 
