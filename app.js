@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const router = require('./routes/alumnos')
 
 
-const url = "mongodb://localhost:27017/alumnos";
+const url = "mongodb+srv://ramonplop:bnuouLAHtSBizRDc@registro.iiyhouy.mongodb.net/?retryWrites=true&w=majority&appName=registro";
 mongoose.connect(url);
 
 const db = mongoose.connection;
